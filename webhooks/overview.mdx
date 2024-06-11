@@ -1,0 +1,27 @@
+---
+title: 'Overview'
+description: 'An overview of webhooks that Apten provides.'
+---
+
+## Why use webhooks
+
+The Apten API is designed to be used in real-time applications. Webhooks are a way to receive
+real-time notifications from the Attent API when certain events occur. For example, you may want
+to know when Apten tags a new lead, or when a new notification is created. Webhooks are a way for
+the Attent API to send these real-time events to your application.
+
+## Configuring webhooks
+
+To configure webhooks, you must provide a URL where the Attent API can send events.
+You can configure webhooks in the [Developer Portal](https://platform.attent.app/developer). Once
+you have configured a webhook, the Attent API will send an HTTP request to the URL you provided
+with JSON data whenever the event occurs.
+
+You can also provide a secret key when configuring a webhook. The secret key is used to sign the
+webhook request, so you can verify that the request is coming from the Attent API. You can learn more
+about verifying webhooks in the [Verifying Webhooks](/webhooks/verification) section.
+
+The two types of events that can trigger a webhook are:
+
+- [**Lead Tagged**](/webhooks/lead-tagged): This event occurs when a new lead is tagged by Apten.
+- [**Notification Created**](/webhooks/notification-created): This event occurs when a new notification is created by Apten.

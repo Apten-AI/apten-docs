@@ -1,0 +1,65 @@
+---
+title: 'Verifying Webhooks'
+description: 'Verifying webhook requests from the Apten API.'
+---
+
+## Webhook signature
+
+To ensure that the webhook request is coming from the Apten API, you can verify the request
+by checking the `X-Signature-SHA256` header. The `X-Signature-SHA256` header contains a HMAC SHA256
+signature of the request body using your webhook secret. You can verify the signature by
+recomputing the HMAC signature using the request body and your webhook secret, and comparing
+it to the value in the `X-Signature-SHA256` header.
+
+{/* prettier-ignore */}
+<Note>
+  * Apten uses an HMAC hex digest to compute the hash.
+  
+  * Make sure that you always handle the payload as UTF-8. Webhook payloads can contain
+  unicode characters.
+</Note>
+
+<Warning>
+  Avoid using a plain `==` operator. A safer alternative includes
+  `crypto.timingSafeEqual` or `compare_digest`, which helps protect you from
+  certain timing attacks against regular equality operators.
+</Warning>
+
+Here are some examples of how you can verify a webhook request:
+
+<CodeGroup>
+
+```javascript Node.js
+import crypto from 'crypto';
+
+const verifyWebhook = (req) => {
+  const secret = 'your-webhook-secret';
+  const payload = JSON.stringify(req.body);
+  const signature = req.headers['X-Signature-SHA256'];
+
+  const hash = crypto
+    .createHmac('sha256', secret)
+    .update(payload, 'utf8')
+    .digest('hex');
+
+  return crypto.timingSafeEqual(Buffer.from(hash), Buffer.from(signature));
+};
+```
+
+```python Python
+import hmac
+import hashlib
+
+def verify_webhook(request):
+    secret = 'your-web-secret'
+    payload = request.get_data()
+    signature = request.headers.get('X-Signature-SHA256')
+
+    hash = hmac.new(secret.encode('utf-8'), payload, hashlib.sha256).hexdigest()
+
+    return hmac.compare_digest(hash, signature)
+```
+
+{/* todo: add ruby? */}
+
+</CodeGroup>

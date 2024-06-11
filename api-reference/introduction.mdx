@@ -1,33 +1,39 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'An overview of the Apten API, including the base URL, authentication, and response codes.'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Base URL
 
-## Welcome
+Our API is built around a RESTful architecture. All requests are made to the base URL:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+```
+https://api.attent.app/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API endpoints are authenticated using an API key in the header.
+You may obtain an API key from the [Developer Portal](https://platform.attent.app/developer).
+The API key is passed in the `x-api-key` header:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "x-api-key": "your-api-key"
+}
 ```
+
+## Response Codes
+
+HTTP response codes are used to indicate the success or failure of an API request. The following response codes are used:
+
+{/* TODO: add 401 Unauthorized? */}
+
+| Code  | Description                                                        |
+| ----- | ------------------------------------------------------------------ |
+| `200` | Successful Request                                                 |
+| `400` | Bad Request - check that input parameters are correctly formatted. |
+| `403` | Forbidden - the supplied API key is missing or invalid.            |
+| `404` | Not Found - the requested resource does not exist.                 |
+| `429` | Too Many Requests - you have exceeded a quota or the rate limit.   |
+| `500` | Server Error - this indicates an error within Apten servers.       |

@@ -1,0 +1,21 @@
+---
+title: 'Lead Tagged'
+description: 'Receive a webhook when a new lead is tagged by Apten.'
+---
+
+## Lead Tagged
+
+This event occurs when a new lead is tagged by Apten. The webhook payload contains
+information about the lead that was tagged, including the lead's phone number and the associated
+tag.
+
+### Payload
+
+The following payload is sent when a lead is tagged:
+
+```json
+{
+  "phone": string,
+  "tag": string
+}
+```
