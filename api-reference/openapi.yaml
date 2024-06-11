@@ -1,0 +1,280 @@
+openapi: 3.0.1
+info:
+  title: AttentPublicAPI
+  version: '2024-05-17T21:09:13Z'
+servers:
+  - url: https://beta-api.attent.app/v1
+paths:
+  # /me:
+  #   get:
+  #     description: 'Returns if the API key is valid'
+  #     responses:
+  #       200:
+  #         description: 'Success'
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 message:
+  #                   type: string
+  #                   description: 'Returns `"Success."` if the API key is valid.'
+  #               example:
+  #                 message: 'Success.'
+  #       403:
+  #         $ref: '#/components/responses/403'
+  #       500:
+  #         $ref: '#/components/responses/500'
+  #     security:
+  #       - api_key: []
+  #     x-amazon-apigateway-integration:
+  #       type: aws_proxy
+  #       httpMethod: POST
+  #       uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:AddContext-beta/invocations
+  #       passthroughBehavior: when_no_match
+  /leads/create:
+    post:
+      description: 'Creates a new lead'
+      requestBody:
+        description: 'Lead to create. Phone number must be unique.'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/leadItem'
+        required: true
+      responses:
+        200:
+          description: 'A lead has been successfully created.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns `"Lead created successfully."` if the lead was created successfully.'
+                example:
+                  message: 'Lead created successfully.'
+        400:
+          description: 'Bad request.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Lead already exists.'
+        403:
+          $ref: '#/components/responses/403'
+        429:
+          description: 'The maximum number of leads has been reached for this month.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Max leads reached for this month.'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:CreateNewLead-beta/invocations
+        passthroughBehavior: when_no_match
+  /leads/turnOff:
+    post:
+      description: 'Turns Apten off for a lead'
+      requestBody:
+        description: 'The phone number of the lead to turn off. Phone number must exist.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  $ref: '#/components/schemas/phoneProperty'
+              required:
+                - phone
+              example:
+                phone: '+15555555555'
+      responses:
+        200:
+          description: 'Apten has successfully been turned off for the lead.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns `"Lead turned off successfully."` if Apten was turned off for the lead.'
+                example:
+                  message: 'Lead turned off successfully.'
+        400:
+          description: 'Bad request.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Invalid format for field: phone'
+        404:
+          description: 'Lead with given phone number not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Resource not found: No lead with phone number +15555555555 found.'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:TurnOffLead-beta/invocations
+        passthroughBehavior: when_no_match
+  /addContext:
+    post:
+      description: 'Adds context to a lead'
+      requestBody:
+        description: "The lead's phone number, the lead's context, and an optional command."
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  $ref: '#/components/schemas/phoneProperty'
+                context:
+                  type: string
+                  description: 'Any additional context to add to the lead.'
+                command:
+                  type: string
+                  description: 'An optional command for Apten regarding the lead. Currently allowed commands are scheduling a follow up and sending a message.'
+              required:
+                - phone
+                - context
+              example:
+                phone: '+15555555555'
+                context: 'The lead has scheduled a meeting with me on Monday at 2pm.'
+                command: 'Schedule a follow up every 2 weeks.'
+      responses:
+        200:
+          description: 'Context has successfully been added to the lead.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns `"Success"` if the context was added successfully.'
+                example:
+                  message: 'Success'
+        400:
+          description: 'Bad request.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Invalid format for field: phone'
+        403:
+          $ref: '#/components/responses/403'
+        # TODO: Add 404 response for no lead/room found (currently is a 500)
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:TestApiKey-beta/invocations
+        passthroughBehavior: when_no_match
+components:
+  responses:
+    403:
+      description: 'Forbidden API key'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: 'Forbidden'
+    500:
+      description: 'Internal Server Error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: 'Internal Server Error'
+  schemas:
+    phoneProperty:
+      type: string
+      description: >
+        The phone number must begin with an area code (+) and
+        can contain digits, spaces, parentheses, and hyphens
+        (e.g. +1 (555) 555-5555)
+    leadItem:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: 'The first name of the lead.'
+        lastName:
+          type: string
+          description: 'The last name of the lead.'
+        phone:
+          $ref: '#/components/schemas/phoneProperty'
+        customerProfile:
+          type: string
+          description: 'The name of the customer profile to which this lead should belong to.'
+        additionalInfo:
+          type: object
+          description: 'An optional key-value object containing additional information to store with the lead.'
+      required:
+        - firstName
+        - lastName
+        - phone
+        - customerProfile
+      example:
+        firstName: 'John'
+        lastName: 'Doe'
+        phone: '+15555555555'
+        customerProfile: 'My Customer Profile'
+        additionalInfo:
+          key1: 'value1'
+          key2: 'value2'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+x-original-swagger-version: '2.0'
