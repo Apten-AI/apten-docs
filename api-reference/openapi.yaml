@@ -3,7 +3,7 @@ info:
   title: AttentPublicAPI
   version: '2024-05-17T21:09:13Z'
 servers:
-  - url: https://beta-api.attent.app/v1
+  - url: https://api.attent.app/v1
 paths:
   # /me:
   #   get:
