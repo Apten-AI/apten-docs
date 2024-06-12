@@ -27,11 +27,6 @@ paths:
   #         $ref: '#/components/responses/500'
   #     security:
   #       - api_key: []
-  #     x-amazon-apigateway-integration:
-  #       type: aws_proxy
-  #       httpMethod: POST
-  #       uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:AddContext-beta/invocations
-  #       passthroughBehavior: when_no_match
   /leads/create:
     post:
       description: 'Creates a new lead'
@@ -83,11 +78,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
-      x-amazon-apigateway-integration:
-        type: aws_proxy
-        httpMethod: POST
-        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:CreateNewLead-beta/invocations
-        passthroughBehavior: when_no_match
   /leads/turnOff:
     post:
       description: 'Turns Apten off for a lead'
@@ -145,11 +135,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
-      x-amazon-apigateway-integration:
-        type: aws_proxy
-        httpMethod: POST
-        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:TurnOffLead-beta/invocations
-        passthroughBehavior: when_no_match
   /addContext:
     post:
       description: 'Adds context to a lead'
@@ -206,11 +191,6 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
-      x-amazon-apigateway-integration:
-        type: aws_proxy
-        httpMethod: POST
-        uri: arn:aws:apigateway:us-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-1:555672977933:function:TestApiKey-beta/invocations
-        passthroughBehavior: when_no_match
 components:
   responses:
     403:
