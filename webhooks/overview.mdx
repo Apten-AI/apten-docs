@@ -25,3 +25,15 @@ The two types of events that can trigger a webhook are:
 
 - [**Lead Tagged**](/webhooks/lead-tagged): This event occurs when a new lead is tagged by Apten.
 - [**Notification Created**](/webhooks/notification-created): This event occurs when a new notification is created by Apten.
+
+## Webhook Event Schema Body
+
+Webhook endpoints will be called with the following JSON body:
+
+```json
+{
+  event, // Event name
+  timestamp, // Datetime string in ISO 8601 format
+  data // Event-specific details
+}
+```

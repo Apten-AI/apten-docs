@@ -6,8 +6,7 @@ description: 'Receive a webhook when a new lead is tagged by Apten.'
 ## Lead Tagged
 
 This event occurs when a new lead is tagged by Apten. The webhook payload contains
-information about the lead that was tagged, including the lead's phone number and the associated
-tag.
+information about the lead that was tagged, including the lead's phone number and the associated tag. The tag name will match up to the name you define in the UI.
 
 ### Payload
 
@@ -15,7 +14,18 @@ The following payload is sent when a lead is tagged:
 
 ```json
 {
-  "phone": string,
-  "tag": string
+  "event": "leadTagged"
+  {
+    "phone": string,
+    "tag": string
+  },
+  "timestamp": string (ISO 8601 format)
 }
 ```
+
+### Out-of-the-box Tags
+
+By default, Apten sends events for a few tags out-of-the-box:
+- hasReplied
+- isHot
+- isQualified

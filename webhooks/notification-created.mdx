@@ -7,7 +7,7 @@ description: 'Receive a webhook when a new notification is created by Apten'
 
 This event occurs when a new notification is created by Apten. The webhook payload contains
 information about the notification that was created, including the lead's phone number, the
-notification name, and the notification message.
+notification name (the name you define in the UI), and the notification message.
 
 ### Payload
 
@@ -15,8 +15,12 @@ The following payload is sent when a lead is tagged:
 
 ```json
 {
-  "phone": string,
-  "notificationName": string,
-  "notificationMessage": string
+  "event": "notification",
+  "data": {
+    "phone": string,
+    "notificationName": string,
+    "notificationMessage": string
+  },
+  "timestamp": string (ISO 8601)
 }
 ```
