@@ -5,28 +5,6 @@ info:
 servers:
   - url: https://api.attent.app/v1
 paths:
-  # /me:
-  #   get:
-  #     description: 'Returns if the API key is valid'
-  #     responses:
-  #       200:
-  #         description: 'Success'
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 message:
-  #                   type: string
-  #                   description: 'Returns `"Success."` if the API key is valid.'
-  #               example:
-  #                 message: 'Success.'
-  #       403:
-  #         $ref: '#/components/responses/403'
-  #       500:
-  #         $ref: '#/components/responses/500'
-  #     security:
-  #       - api_key: []
   /leads/create:
     post:
       description: 'Creates a new lead'
@@ -48,6 +26,9 @@ paths:
                   message:
                     type: string
                     description: 'Returns `"Lead created successfully."` if the lead was created successfully.'
+                  id:
+                    type: string
+                    description: 'The ID of the lead that was created.'
                 example:
                   message: 'Lead created successfully.'
         400:
@@ -78,22 +59,170 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
-  /leads/turnOff:
+  /leads/{leadId}:
+    get:
+      description: 'Fetches details of a specific lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to fetch'
+      responses:
+        200:
+          description: 'Lead details fetched successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    description: 'The first name of the lead.'
+                  lastName:
+                    type: string
+                    description: 'The last name of the lead.'
+                  phone:
+                    type: string
+                    description: 'The phone number of the lead. This will be in the format `+15555555555`.'
+                  customerProfile:
+                    type: string
+                    description: 'The name of the customer profile to which this lead belongs.'
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: 'The date and time when the lead was created.'
+                  additionalInfo:
+                    type: object
+                    description: 'An optional key-value object containing additional information stored with the lead. This includes any context from when the lead was created, along with any variables that Apten has stored for the lead.'
+                  hasReplied:
+                    type: boolean
+                    description: 'Indicates whether the lead has replied to any messages from Apten.'
+                  isHot:
+                    type: boolean
+                    description: 'Indicates whether the lead is considered "hot" by Apten.'
+                  isQualified:
+                    type: boolean
+                    description: 'Indicates whether the lead is considered "qualified" by Apten.'
+                  isUnsubscribed:
+                    type: boolean
+                    description: 'Indicates whether the lead has unsubscribed from Apten.'
+                  isAiOn:
+                    type: boolean
+                    description: 'Indicates whether Apten is turned on for the lead.'
+                  tags:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: 'The name of the tag.'
+                        condition:
+                          type: string
+                          description: 'The condition defined for the tag.'
+                    description: 'An array of tags associated with the lead.'
+                  summary:
+                    type: string
+                    description: 'A summary of the conversation with the lead.'
+                example:
+                  lead:
+                    firstName: 'John'
+                    lastName: 'Doe'
+                    phone: '+15555555555'
+                    customerProfile: 'My Customer Profile'
+                    additionalInfo:
+                      key1: 'value1'
+                      key2: 'value2'
+                    createdAt: '2024-05-17T21:09:13Z'
+                    hasReplied: true
+                    isHot: true
+                    isQualified: false
+                    isUnsubscribed: false
+                    isAiOn: true
+                    tags:
+                      - name: 'Tag 1'
+                        condition: 'Condition 1'
+                      - name: 'Tag 2'
+                        condition: 'Condition 2'
+                    summary: 'Summary of the conversation with the lead.'
+        404:
+          description: 'Lead not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Lead not found.'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+  /leads/{leadId}/messages:
+    get:
+      description: 'Fetches messages sent to and received from a lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to fetch messages for.'
+      responses:
+        200:
+          description: 'Messages fetched successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: object
+                          properties:
+                            text:
+                              type: string
+                              description: 'The message content.'
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: 'The date and time when the message was sent or received.'
+                        owner:
+                          type: string
+                          description: 'The owner of the message. This can be either `"lead"` or `"user"`.'
+                      description: 'An array of messages sent to and received from the lead.'
+                example:
+                  messages:
+                    - content:
+                        text: 'Hello, how can I help you?'
+                      createdAt: '2024-05-17T21:09:13Z'
+                      owner: 'user'
+                    - content:
+                        text: 'I would like to schedule a meeting.'
+                      createdAt: '2024-05-17T21:09:13Z'
+                      owner: 'lead'
+      security:
+        - api_key: []
+  /leads/{leadId}/turnOff:
     post:
       description: 'Turns Apten off for a lead'
-      requestBody:
-        description: 'The phone number of the lead to turn off. Phone number must exist.'
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                phone:
-                  $ref: '#/components/schemas/phoneProperty'
-              required:
-                - phone
-              example:
-                phone: '+15555555555'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to turn off Apten for.'
       responses:
         200:
           description: 'Apten has successfully been turned off for the lead.'
@@ -119,7 +248,7 @@ paths:
                 example:
                   message: 'Invalid format for field: phone'
         404:
-          description: 'Lead with given phone number not found.'
+          description: 'Lead with given id not found.'
           content:
             application/json:
               schema:
@@ -128,25 +257,23 @@ paths:
                   message:
                     type: string
                 example:
-                  message: 'Resource not found: No lead with phone number +15555555555 found.'
+                  message: 'Resource not found: Lead with id abcd'
         403:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
-  /addContext:
+  /leads/{leadId}/addContext:
     post:
       description: 'Adds context to a lead'
       requestBody:
-        description: "The lead's phone number, the lead's context, and an optional command."
+        description: "The lead's context and an optional command."
         content:
           application/json:
             schema:
               type: object
               properties:
-                phone:
-                  $ref: '#/components/schemas/phoneProperty'
                 context:
                   type: string
                   description: 'Any additional context to add to the lead.'
@@ -154,10 +281,8 @@ paths:
                   type: string
                   description: 'An optional command for Apten regarding the lead. Currently allowed commands are scheduling a follow up and sending a message.'
               required:
-                - phone
                 - context
               example:
-                phone: '+15555555555'
                 context: 'The lead has scheduled a meeting with me on Monday at 2pm.'
                 command: 'Schedule a follow up every 2 weeks.'
       responses:
@@ -182,8 +307,6 @@ paths:
                 properties:
                   message:
                     type: string
-                example:
-                  message: 'Invalid format for field: phone'
         403:
           $ref: '#/components/responses/403'
         # TODO: Add 404 response for no lead/room found (currently is a 500)
