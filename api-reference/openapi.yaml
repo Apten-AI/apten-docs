@@ -314,6 +314,59 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
+  /leads/lookup:
+    get:
+      description: 'Looks up a lead by phone number'
+      parameters:
+        - name: phone
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/phoneProperty'
+          description: 'The phone number of the lead to look up'
+      responses:
+        200:
+          description: 'Lead found successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: 'The ID of the lead associated with the provided phone number.'
+                required:
+                  - id
+              example:
+                id: '1234'
+        400:
+          description: 'Bad request. Invalid phone number format.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Invalid phone number format.'
+        404:
+          description: 'Lead not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Lead not found.'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
 components:
   responses:
     403:

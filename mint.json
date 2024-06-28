@@ -59,7 +59,8 @@
         "api-reference/leads/get-lead",
         "api-reference/leads/get-messages",
         "api-reference/leads/turn-off",
-        "api-reference/leads/add-context"
+        "api-reference/leads/add-context",
+        "api-reference/leads/lookup"
       ]
     }
   ],
