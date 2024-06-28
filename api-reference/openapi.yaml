@@ -127,26 +127,25 @@ paths:
                     type: string
                     description: 'A summary of the conversation with the lead.'
                 example:
-                  lead:
-                    firstName: 'John'
-                    lastName: 'Doe'
-                    phone: '+15555555555'
-                    customerProfile: 'My Customer Profile'
-                    additionalInfo:
-                      key1: 'value1'
-                      key2: 'value2'
-                    createdAt: '2024-05-17T21:09:13Z'
-                    hasReplied: true
-                    isHot: true
-                    isQualified: false
-                    isUnsubscribed: false
-                    isAiOn: true
-                    tags:
-                      - name: 'Tag 1'
-                        condition: 'Condition 1'
-                      - name: 'Tag 2'
-                        condition: 'Condition 2'
-                    summary: 'Summary of the conversation with the lead.'
+                  firstName: 'John'
+                  lastName: 'Doe'
+                  phone: '+15555555555'
+                  customerProfile: 'My Customer Profile'
+                  additionalInfo:
+                    key1: 'value1'
+                    key2: 'value2'
+                  createdAt: '2024-05-17T21:09:13Z'
+                  hasReplied: true
+                  isHot: true
+                  isQualified: false
+                  isUnsubscribed: false
+                  isAiOn: true
+                  tags:
+                    - name: 'Tag 1'
+                      condition: 'Condition 1'
+                    - name: 'Tag 2'
+                      condition: 'Condition 2'
+                  summary: 'Summary of the conversation with the lead.'
         404:
           description: 'Lead not found.'
           content:
