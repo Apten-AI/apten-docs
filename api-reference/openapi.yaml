@@ -266,6 +266,13 @@ paths:
   /leads/{leadId}/addContext:
     post:
       description: 'Adds context to a lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to add context to.'
       requestBody:
         description: "The lead's context and an optional command."
         content:
