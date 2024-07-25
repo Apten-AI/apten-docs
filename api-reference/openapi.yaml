@@ -245,7 +245,58 @@ paths:
                   message:
                     type: string
                 example:
-                  message: 'Invalid format for field: phone'
+                  message: 'Missing field: leadId'
+        404:
+          description: 'Lead with given id not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Resource not found: Lead with id abcd'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+  /leads/{leadId}/turnOn:
+    post:
+      description: 'Turns Apten on for a lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to turn on Apten for.'
+      responses:
+        200:
+          description: 'Apten has successfully been turned on for the lead.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns `"Lead turned on successfully."` if Apten was turned on for the lead.'
+                example:
+                  message: 'Lead turned on successfully.'
+        400:
+          description: 'Bad request.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Missing field: leadId'
         404:
           description: 'Lead with given id not found.'
           content:
