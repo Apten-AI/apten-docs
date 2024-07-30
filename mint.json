@@ -61,6 +61,7 @@
         "api-reference/leads/turn-off",
         "api-reference/leads/turn-on",
         "api-reference/leads/add-context",
+        "api-reference/leads/switch-customer-profile",
         "api-reference/leads/lookup"
       ]
     }

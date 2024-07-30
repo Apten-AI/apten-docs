@@ -424,6 +424,46 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
+  /leads/{leadId}/switchCustomerProfile:
+    post:
+      description: 'Switches the customer profile of a lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to switch the customer profile for.'
+      requestBody:
+        description: 'The new customer profile to switch the lead to.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile:
+                  type: string
+                  description: 'The name of the new customer profile to switch the lead to.'
+                sendMessage:
+                  type: boolean
+                  description: 'Whether to send a message to the lead.'
+                messageDelayHours:
+                  type: integer
+                  description: 'The number of hours to wait before sending the message.'
+              required:
+                - profile
+      responses:
+        200:
+          description: 'Customer profile of lead switched successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      security:
+        - api_key: []
 components:
   responses:
     403:
