@@ -14,11 +14,12 @@ The following payload is sent when a lead is tagged:
 
 ```json
 {
-  "event": "leadTagged"
-  {
+  "event": "leadTagged",
+  "data": {
     "leadId": string,
     "phone": string,
-    "tag": string
+    "tag": string,
+    "close_crm_leadId": string // Included only if the lead is associated with Close CRM via the integration
   },
   "timestamp": string (ISO 8601 format)
 }
