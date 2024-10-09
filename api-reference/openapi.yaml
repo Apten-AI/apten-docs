@@ -464,6 +464,69 @@ paths:
                     type: string
       security:
         - api_key: []
+  /leads/{leadId}/sendMessage:
+    post:
+      description: 'Sends a message to a lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to send a message to.'
+      requestBody:
+        description: 'The message to send to the lead.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: 'The content of the message to send to the lead.'
+              required:
+                - message
+      responses:
+        200:
+          description: 'Message sent successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns "Message sent successfully." if the message was sent.'
+                example:
+                  message: 'Message sent successfully.'
+        400:
+          description: 'Bad request.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Missing required field: message'
+        404:
+          description: 'Lead not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Lead not found.'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
 components:
   responses:
     403:
