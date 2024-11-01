@@ -333,15 +333,19 @@ paths:
               properties:
                 context:
                   type: string
-                  description: 'Any additional context to add to the lead.'
+                  description: 'Additional context to add to the lead. Good for adding free-form text context or event details.'
+                additionalInfo:
+                  type: object
+                  description: 'An key-value object containing structured data to store with the lead. These will be stored as variables that can be accessed in the flow-chart conversation prompts.'
                 command:
                   type: string
                   description: 'An optional command for Apten regarding the lead. Currently allowed commands are scheduling a follow up and sending a message.'
-              required:
-                - context
               example:
                 context: 'The lead has scheduled a meeting with me on Monday at 2pm.'
-                command: 'Schedule a follow up every 2 weeks.'
+                additionalInfo:
+                  favoriteColor: 'blue'
+                  favoriteFood: 'pizza'
+                command: 'Schedule a follow up for next week.'
       responses:
         200:
           description: 'Context has successfully been added to the lead.'
