@@ -1,0 +1,91 @@
+---
+title: 'Salesforce'
+description: 'Integrate Apten with Salesforce.'
+---
+
+## Overview
+
+Connect your Apten account with Salesforce to sync information about leads and SMS conversations in Apten with any Salesforce object. Currently, we support syncing:
+
+- **Tags**: sync tags into a custom field in Salesforce.
+- **Summaries**: sync lead conversation summaries into a custom field in Salesforce.
+- **Variables**: map variables to custom fields in Salesforce, which will sync in real-time.
+
+## Step 1: Create an Integration User in Salesforce
+
+1. Log in to Salesforce as an administrator
+2. Navigate to Setup > Users > New User
+3. Fill in the required fields:
+
+   - First Name: Apten
+   - Last Name: Integration
+   - Email: [email for the integration user]
+   - Username: [unique username for integration]
+   - Role: [assign an appropriate role]
+   - User License: Salesforce Integration
+   - Profile: Salesforce API Only System Integrations
+
+4. Click "Save" to create the Integration User
+
+## Step 2: Create a Permission Set in Salesforce
+
+1. Navigate to Setup > Permission Sets > New
+2. Create a new Permission Set:
+
+   - Label: Apten Integration Permissions
+   - API Name: Apten_Integration_Permissions
+
+3. Click "Save" to create the Permission Set
+
+4. Configure the Permission Set:
+   - Under "System Permissions", enable:
+     - API Enabled
+     - Modify All Data
+   - Under "Object Settings", enable:
+     - Read, Create, Edit permissions the object that you want to sync with Apten (e.g., Lead, Contact, etc.), along with any fields on that object that you want to sync.
+5. Assign the Permission Set to the Integration User:
+   - Go to Setup > Permission Sets
+   - Click on the "Apten Integration Permissions" Permission Set
+   - Click "Manage Assignments"
+   - Click "Add Assignments"
+   - Select the Apten Integration User
+   - Click "Assign"
+
+## Step 3: Connect Apten to Salesforce
+
+1. In Apten, go to **Integrations**
+2. Click **Connect** on the Salesforce card
+3. Authorize with the email and password for the Salesforce Integration User
+4. Click **Connect**
+5. Select the object that you want to sync with Apten (e.g., Lead, Contact, etc.), and click **Save** (you won't be able to change this later).
+6. If you'd like to sync Tags or Summaries, click the **Set up** button next to the relevant section.
+   - This will create a custom field on the object in Salesforce (Apten_Tags\_\_c, Apten_Summary\_\_c) and enable syncing.
+   - **Important: You MUST remember to update your permission set in Salesforce to include the new custom field, or syncing will fail.**
+
+## Step 4: Map Variables (Optional)
+
+When setting up variables in customer profiles in **Build & Test**, you can map them to Salesforce fields.
+
+These fields will automatically sync to Salesforce in real-time when Apten talks to a lead.
+
+![Salesforce Variables](/integrations/variables.png)
+
+## Step 5: Import Leads with Salesforce IDs
+
+When importing leads into Apten, you must set the following fields:
+
+- `integrationSource`: Set this to `'salesforce'` to indicate the lead is from Salesforce
+- `salesforceId`: Set this to the Salesforce object ID of the lead (e.g. '00Q1a000004XYZ')
+
+Example payload:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "phone": "1234567890",
+  "customerProfile": "Test Profile",
+  "integrationSource": "salesforce", // Required for Sync
+  "salesforceId": "00Q1a000004XYZ" // Required for Sync
+}
+```

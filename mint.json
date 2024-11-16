@@ -49,6 +49,10 @@
       ]
     },
     {
+      "group": "Integrations",
+      "pages": ["integrations/salesforce"]
+    },
+    {
       "group": "API Reference",
       "pages": ["api-reference/introduction"]
     },
