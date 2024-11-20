@@ -488,6 +488,12 @@ paths:
                 message:
                   type: string
                   description: 'The content of the message to send to the lead.'
+                scheduledTime:
+                  type: string
+                  description: 'The date and time to schedule the message for. This should be in ISO 8601 format (e.g. 2024-05-17T21:09:13Z). If not provided, or if the scheduled time is in the past, the message will be sent immediately.'
+                sendWhenOff:
+                  type: boolean
+                  description: 'Whether to send the message even if Apten is turned off for the lead. Defaults to `false`.'
               required:
                 - message
       responses:

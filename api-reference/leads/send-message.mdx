@@ -2,11 +2,3 @@
 title: Send message to a lead
 openapi: post /leads/{leadId}/sendMessage
 ---
-
-When you send a message to a lead using this endpoint, our AI system automatically analyzes the conversation context and determines whether a follow-up is necessary. If a follow-up is deemed appropriate, the AI will automatically schedule it.
-
-Key points about AI-driven follow-ups:
-
-1. **Automatic Determination**: The AI evaluates the conversation history and the content of your message to decide if a follow-up is needed.
-
-2. **Conditional Sending**: The scheduled follow-up message will only be sent if the AI is turned on for that lead at the time of the scheduled follow-up. This ensures that the AI respects any manual interventions or changes in the lead's status.
