@@ -49,6 +49,10 @@
       ]
     },
     {
+      "group": "Tutorials",
+      "pages": ["tutorials/guardrails"]
+    },
+    {
       "group": "Integrations",
       "pages": ["integrations/salesforce"]
     },
