@@ -1,0 +1,95 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "willow",
+  "name": "Apten",
+  "colors": {
+    "primary": "#2563eb",
+    "light": "#2563eb",
+    "dark": "#2563eb"
+  },
+  "favicon": "/favicon.png",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction"]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "webhooks/overview",
+              {
+                "group": "Webhook Events",
+                "pages": [
+                  "webhooks/lead-tagged",
+                  "webhooks/notification-created"
+                ]
+              },
+              "webhooks/verification"
+            ]
+          },
+          {
+            "group": "Tutorials",
+            "pages": ["tutorials/guardrails"]
+          },
+          {
+            "group": "Integrations",
+            "pages": ["integrations/salesforce"]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Reference",
+            "pages": ["api-reference/introduction"]
+          },
+          {
+            "group": "Leads",
+            "pages": [
+              "api-reference/leads/create",
+              "api-reference/leads/get-lead",
+              "api-reference/leads/get-messages",
+              "api-reference/leads/turn-off",
+              "api-reference/leads/turn-on",
+              "api-reference/leads/add-context",
+              "api-reference/leads/switch-customer-profile",
+              "api-reference/leads/lookup",
+              "api-reference/leads/send-message"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/logo_light.png",
+    "dark": "/logo/logo_dark.png"
+  },
+  "api": {
+    "openapi": "api-reference/openapi.yaml"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:founders@apten.ai"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://platform.attent.app/"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/Apten_AI",
+      "linkedin": "https://www.linkedin.com/company/apten"
+    }
+  }
+}
