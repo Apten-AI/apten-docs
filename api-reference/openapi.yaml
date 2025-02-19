@@ -537,8 +537,133 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
+  /dnc/register:
+    post:
+      description: 'Adds a phone number to the Do Not Contact (DNC) list to prevent it from being imported.'
+      requestBody:
+        description: 'Phone number to add to DNC list'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  $ref: '#/components/schemas/phoneProperty'
+              required:
+                - phone
+              example:
+                phone: '+15555555555'
+        required: true
+      responses:
+        200:
+          description: 'Phone number successfully added to DNC list'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Success message'
+                example:
+                  message: 'Phone number successfully added to DNC list'
+        400:
+          $ref: '#/components/responses/400'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+
+  /dnc/{phone_number}:
+    get:
+      description: 'Checks if a phone number is in the DNC list'
+      parameters:
+        - name: phone_number
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/phoneProperty'
+          description: 'The phone number to check'
+      responses:
+        200:
+          description: 'Phone number found in DNC list'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  phone:
+                    type: string
+                    description: 'The phone number in the DNC list'
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: 'The date and time when the phone number was added to the DNC list'
+                example:
+                  phone: '+15555555555'
+                  createdAt: '2024-05-17T21:09:13Z'
+        404:
+          description: 'Phone number not found in DNC list'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Phone number not found in DNC list'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+
+    delete:
+      description: 'Removes a phone number from the DNC list'
+      parameters:
+        - name: phone_number
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/phoneProperty'
+          description: 'The phone number to remove'
+      responses:
+        200:
+          description: 'Phone number successfully removed from DNC list'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Success message'
+                example:
+                  message: 'Phone number successfully removed from DNC list'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+
 components:
   responses:
+    400:
+      description: 'Bad Request'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+            example:
+              message: 'Invalid format for field: phone'
     403:
       description: 'Forbidden API key'
       content:

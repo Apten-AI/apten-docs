@@ -61,6 +61,14 @@
               "api-reference/leads/lookup",
               "api-reference/leads/send-message"
             ]
+          },
+          {
+            "group": "Do Not Contact",
+            "pages": [
+              "api-reference/dnc/register",
+              "api-reference/dnc/get-dnc",
+              "api-reference/dnc/delete-dnc"
+            ]
           }
         ]
       }
