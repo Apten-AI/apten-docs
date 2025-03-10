@@ -34,8 +34,9 @@
           {
             "group": "Tutorials",
             "pages": [
-              "tutorials/guardrails",
-              "tutorials/customer-profiles"
+              "tutorials/customer_profiles",
+              "tutorials/custom_knowledge",
+              "tutorials/guardrails"
             ]
           },
           {
