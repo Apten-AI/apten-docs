@@ -33,7 +33,10 @@
           },
           {
             "group": "Tutorials",
-            "pages": ["tutorials/guardrails"]
+            "pages": [
+              "tutorials/guardrails",
+              "tutorials/customer-profiles"
+            ]
           },
           {
             "group": "Integrations",
