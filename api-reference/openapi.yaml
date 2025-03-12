@@ -454,6 +454,9 @@ paths:
                 messageDelayHours:
                   type: integer
                   description: 'The number of hours to wait before sending the message.'
+                clearMemory:
+                  type: boolean
+                  description: "Whether to clear the AI's memory of the existing conversation with the lead. Defaults to `false`."
               required:
                 - profile
       responses:
@@ -535,6 +538,43 @@ paths:
           $ref: '#/components/responses/403'
         500:
           $ref: '#/components/responses/500'
+      security:
+        - api_key: []
+  /leads/{leadId}/resubscribe:
+    post:
+      description: 'Resubscribes a lead to text messages from Apten.'
+      x-notes: 'This only works if the lead has unsubscribed via Apten''s smart-unsubscribe feature, or via user-defined custom unsubscribe keywords. Leads who opt-out via a default keyword (e.g. "STOP", "UNSUBSCRIBE", "CANCEL", "END", "QUIT", and "STOP ALL") are ineligible for resubscription. This also turns Apten on for the lead.'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to resubscribe.'
+      responses:
+        200:
+          description: 'Lead resubscribed successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns "Lead resubscribed successfully." if the lead was resubscribed.'
+                example:
+                  message: 'Lead resubscribed successfully.'
+        404:
+          description: 'Lead not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Resource not found: Lead with id 12345'
       security:
         - api_key: []
   /dnc/register:

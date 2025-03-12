@@ -1,0 +1,10 @@
+---
+title: Rescribe a lead to text messages
+openapi: post /leads/{leadId}/resubscribe
+---
+
+### Notes
+
+This API only works if the lead has unsubscribed via Apten''s smart-unsubscribe feature, or via user-defined custom unsubscribe keywords. Leads who opt-out via a default keyword (e.g. "STOP", "UNSUBSCRIBE", "CANCEL", "END", "QUIT", and "STOP ALL") are ineligible for resubscription.
+
+This API also turns Apten on for the lead.
