@@ -25,7 +25,8 @@
                 "group": "Webhook Events",
                 "pages": [
                   "webhooks/lead-tagged",
-                  "webhooks/notification-created"
+                  "webhooks/notification-created",
+                  "webhooks/message-sent"
                 ]
               },
               "webhooks/verification"

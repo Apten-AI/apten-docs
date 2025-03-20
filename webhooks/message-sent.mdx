@@ -1,0 +1,38 @@
+---
+title: 'Message Sent'
+description: 'Get notified when a message is sent to a lead'
+---
+
+The `messageSent` webhook event is triggered whenever your Apten assistant sends a message to a lead. This can be used to track outgoing communication and monitor follow-up sequences.
+
+## Payload
+
+```json
+{
+  "event": "messageSent",
+  "data": {
+    "leadId": "c4f23a1b-d8e5-4f67-90c1-2a5b8d3e9x7y",
+    "phone": "+12025550189",
+    "profile": "Default Profile",
+    "isFollowUp": true,
+    "followUpStep": 1,
+    "content": {
+      "text": "Hi there! Just following up on our previous conversation. Would you like to learn more about our services?"
+    }
+  },
+  "timestamp": "2024-01-15T14:30:00Z"
+}
+```
+
+## Properties
+
+| Property            | Type           | Description                                                                                                                                                                           |
+| ------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `event`             | string         | The webhook event type (`messageSent`).                                                                                                                                               |
+| `data.leadId`       | string         | The unique identifier for the lead.                                                                                                                                                   |
+| `data.phone`        | string         | The phone number of the lead.                                                                                                                                                         |
+| `data.profile`      | string         | The customer profile assigned to the lead.                                                                                                                                            |
+| `data.isFollowUp`   | boolean        | Indicates if this message is part of a follow-up sequence.                                                                                                                            |
+| `data.followUpStep` | number \| null | The current step in the follow-up sequence. Will be `null` if `isFollowUp` is false. May also be `null` for older follow-ups that were scheduled before this feature was implemented. |
+| `data.content.text` | string         | The content of the message sent to the lead.                                                                                                                                          |
+| `timestamp`         | string         | The ISO 8601 timestamp when the message was sent.                                                                                                                                     |
