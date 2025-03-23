@@ -26,7 +26,8 @@
                 "pages": [
                   "webhooks/lead-tagged",
                   "webhooks/notification-created",
-                  "webhooks/message-sent"
+                  "webhooks/message-sent",
+                  "webhooks/opt-out"
                 ]
               },
               "webhooks/verification"

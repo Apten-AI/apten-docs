@@ -1,0 +1,28 @@
+---
+title: 'Opt Out'
+description: 'Get notified when a lead opts out of messaging'
+---
+
+The `optOut` webhook event is triggered whenever a lead opts out of receiving further messages from your Apten assistant. This can be used to update your CRM or other systems about the lead's communication preferences.
+
+## Payload
+
+```json
+{
+  "event": "optOut",
+  "data": {
+    "leadId": "a7e92c5d-f301-4b89-ae16-8f35d02cx9z",
+    "phone": "+13305551234"
+  },
+  "timestamp": "2024-02-18T09:45:22Z"
+}
+```
+
+## Properties
+
+| Property      | Type   | Description                                       |
+| ------------- | ------ | ------------------------------------------------- |
+| `event`       | string | The webhook event type (`optOut`).                |
+| `data.leadId` | string | The unique identifier for the lead who opted out. |
+| `data.phone`  | string | The phone number of the lead who opted out.       |
+| `timestamp`   | string | The ISO 8601 timestamp when the opt-out occurred. |
