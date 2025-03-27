@@ -12,7 +12,8 @@ The `optOut` webhook event is triggered whenever a lead opts out of receiving fu
   "event": "optOut",
   "data": {
     "leadId": "a7e92c5d-f301-4b89-ae16-8f35d02cx9z",
-    "phone": "+13305551234"
+    "phone": "+13305551234",
+    "isTwilioOptOut": true
   },
   "timestamp": "2024-02-18T09:45:22Z"
 }
@@ -20,9 +21,12 @@ The `optOut` webhook event is triggered whenever a lead opts out of receiving fu
 
 ## Properties
 
-| Property      | Type   | Description                                       |
-| ------------- | ------ | ------------------------------------------------- |
-| `event`       | string | The webhook event type (`optOut`).                |
-| `data.leadId` | string | The unique identifier for the lead who opted out. |
-| `data.phone`  | string | The phone number of the lead who opted out.       |
-| `timestamp`   | string | The ISO 8601 timestamp when the opt-out occurred. |
+| Property              | Type    | Description                                                 |
+| --------------------- | ------- | ------------------------------------------------------------|
+| `event`               | string  | The webhook event type (`optOut`).                          |
+| `data.leadId`         | string  | The unique identifier for the lead who opted out.           |
+| `data.phone`          | string  | The phone number of the lead who opted out.                 |
+| `data.isTwilioOptOut` | boolean | Indicates whether the opt-out was processed through Twilio. |
+| `timestamp`           | string  | The ISO 8601 timestamp when the opt-out occurred.           |
+
+```
