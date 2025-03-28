@@ -761,6 +761,9 @@ components:
         customerProfile:
           type: string
           description: 'The name of the customer profile to which this lead should belong to.'
+        timezone:
+          type: string
+          description: 'The timezone of the lead in tz database format (e.g. America/New_York, Europe/London).'
         additionalInfo:
           type: object
           description: 'An optional key-value object containing additional information to store with the lead.'
@@ -774,6 +777,7 @@ components:
         lastName: 'Doe'
         phone: '+15555555555'
         customerProfile: 'My Customer Profile'
+        timezone: 'America/New_York'
         additionalInfo:
           key1: 'value1'
           key2: 'value2'
