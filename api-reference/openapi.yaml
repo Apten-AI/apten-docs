@@ -453,7 +453,10 @@ paths:
                   description: 'Whether to send a message to the lead.'
                 messageDelayHours:
                   type: integer
-                  description: 'The number of hours to wait before sending the message.'
+                  description: 'The number of hours to wait before sending the message. Takes precedence over messageDelayMins.'
+                messageDelayMins:
+                  type: integer
+                  description: 'The number of minutes to wait before sending the message. Used as an alternative to messageDelayHours.'
                 clearMemory:
                   type: boolean
                   description: "Whether to clear the AI's memory of the existing conversation with the lead. Defaults to `false`."
@@ -469,6 +472,17 @@ paths:
                 properties:
                   message:
                     type: string
+                  sendMessage:
+                    type: boolean
+                  messageDelayHours:
+                    type: integer
+                  messageDelayMins:
+                    type: integer
+                example:
+                  message: 'Switched profile successfully.'
+                  sendMessage: true
+                  messageDelayHours: 0
+                  messageDelayMins: 30
       security:
         - api_key: []
   /leads/{leadId}/sendMessage:
