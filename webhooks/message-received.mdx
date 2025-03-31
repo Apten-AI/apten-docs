@@ -1,0 +1,34 @@
+---
+title: 'Message Received'
+description: 'Get notified when a message is received from a lead'
+---
+
+The `message.received` webhook event is triggered whenever a lead texts your phone number. This can be used to track incoming communication.
+
+## Payload
+
+```json
+{
+  "event": "message.received",
+  "data": {
+    "leadId": "c4f23a1b-d8e5-4f67-90c1-2a5b8d3e9x7y",
+    "phone": "+12025550189",
+    "profile": "Default Profile",
+    "content": {
+      "text": "hello, are you available?"
+    }
+  },
+  "timestamp": "2024-01-15T14:30:00Z"
+}
+```
+
+## Properties
+
+| Property            | Type   | Description                                           |
+| ------------------- | ------ | ----------------------------------------------------- |
+| `event`             | string | The webhook event type (`message.received`).          |
+| `data.leadId`       | string | The unique identifier for the lead.                   |
+| `data.phone`        | string | The phone number of the lead.                         |
+| `data.profile`      | string | The customer profile assigned to the lead.            |
+| `data.content.text` | string | The content of the message received from the lead.    |
+| `timestamp`         | string | The ISO 8601 timestamp when the message was received. |
