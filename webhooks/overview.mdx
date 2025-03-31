@@ -6,25 +6,30 @@ description: 'An overview of webhooks that Apten provides.'
 ## Why use webhooks
 
 The Apten API is designed to be used in real-time applications. Webhooks are a way to receive
-real-time notifications from the Attent API when certain events occur. For example, you may want
-to know when Apten tags a new lead, or when a new notification is created. Webhooks are a way for
-the Attent API to send these real-time events to your application.
+real-time notifications from the Apten API when certain events occur. For example, you may want
+to know when Apten tags a new lead, when a message is received from a lead, or when a lead opts out. Webhooks are a way for
+the Apten API to send these real-time events to your application.
 
 ## Configuring webhooks
 
-To configure webhooks, you must provide a URL where the Attent API can send events.
+To configure webhooks, you must provide a URL where the Apten API can send events.
 You can configure webhooks in the [Developer Portal](https://platform.attent.app/developer). Once
-you have configured a webhook, the Attent API will send an HTTP request to the URL you provided
+you have configured a webhook, the Apten API will send an HTTP request to the URL you provided
 with JSON data whenever the event occurs.
 
 You can also provide a secret key when configuring a webhook. The secret key is used to sign the
-webhook request, so you can verify that the request is coming from the Attent API. You can learn more
+webhook request, so you can verify that the request is coming from the Apten API. You can learn more
 about verifying webhooks in the [Verifying Webhooks](/webhooks/verification) section.
 
-The two types of events that can trigger a webhook are:
+## Available Webhook Events
 
-- [**Lead Tagged**](/webhooks/lead-tagged): This event occurs when a new lead is tagged by Apten.
+The following events can trigger a webhook:
+
+- [**Lead Tagged**](/webhooks/lead-tagged): This event occurs when a lead is tagged by Apten.
 - [**Notification Created**](/webhooks/notification-created): This event occurs when a new notification is created by Apten.
+- [**Message Received**](/webhooks/message-received): This event occurs when a message is received from a lead.
+- [**Message Sent**](/webhooks/message-sent): This event occurs when a message is sent to a lead.
+- [**Opt Out**](/webhooks/opt-out): This event occurs when a lead opts out of messaging.
 
 ## Webhook Event Schema Body
 
@@ -32,8 +37,8 @@ Webhook endpoints will be called with the following JSON body:
 
 ```json
 {
-  event, // Event name
-  timestamp, // Datetime string in ISO 8601 format
-  data // Event-specific details
+  "event": "eventName", // Event name
+  "timestamp": "2024-01-15T14:30:00Z", // Datetime string in ISO 8601 format
+  "data": {} // Event-specific details
 }
 ```

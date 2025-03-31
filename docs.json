@@ -27,6 +27,7 @@
                   "webhooks/lead-tagged",
                   "webhooks/notification-created",
                   "webhooks/message-sent",
+                  "webhooks/message-received",
                   "webhooks/opt-out"
                 ]
               },
