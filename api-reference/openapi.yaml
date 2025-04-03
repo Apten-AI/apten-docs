@@ -511,6 +511,12 @@ paths:
                 sendWhenOff:
                   type: boolean
                   description: 'Whether to send the message even if Apten is turned off for the lead. Defaults to `false`.'
+                scheduleFollowUps:
+                  type: boolean
+                  description: 'Whether to schedule follow-up messages for this lead. Defaults to `false`.'
+                overrideBusinessHours:
+                  type: boolean
+                  description: 'Whether to send the message immediately regardless of business hours. If not provided or `false`, and no scheduledTime is specified, the message will be scheduled for the next business hours. Defaults to `false`.'
               required:
                 - message
       responses:
