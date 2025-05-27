@@ -770,6 +770,9 @@ components:
         timeZone:
           type: string
           description: 'The timezone of the lead in tz database format (e.g. America/New_York, Europe/London).'
+        email:
+          type: string
+          description: 'The email address of the lead. Must be a valid email format (e.g. user@domain.com).'
         additionalInfo:
           type: object
           description: 'An optional key-value object containing additional information to store with the lead.'
@@ -784,6 +787,7 @@ components:
         phone: '+15555555555'
         customerProfile: 'My Customer Profile'
         timeZone: 'America/New_York'
+        email: 'example@gmail.com'
         additionalInfo:
           key1: 'value1'
           key2: 'value2'
