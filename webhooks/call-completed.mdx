@@ -1,0 +1,38 @@
+---
+title: 'Call Completed'
+description: 'Get notified when a call is completed'
+---
+
+The `call.completed` webhook event is triggered whenever a call is finished. This can be used to track call duration, direction, and capture call summaries for reporting and analytics.
+
+## Payload
+
+```json
+{
+  "event": "call.completed",
+  "data": {
+    "leadId": "c4f23a1b-d8e5-4f67-90c1-2a5b8d3e9x7y",
+    "phone": "+12025550189",
+    "profile": "Default Profile",
+    "callId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "durationSeconds": 145,
+    "direction": "INBOUND",
+    "summary": "Customer inquired about pricing and requested a follow-up meeting."
+  },
+  "timestamp": "2024-01-15T14:30:00Z"
+}
+```
+
+## Properties
+
+| Property               | Type                | Description                                         |
+| ---------------------- | ------------------- | --------------------------------------------------- |
+| `event`                | string              | The webhook event type (`call.completed`).          |
+| `data.leadId`          | string              | The unique identifier for the lead.                 |
+| `data.phone`           | string              | The phone number of the lead.                       |
+| `data.profile`         | string              | The customer profile assigned to the lead.          |
+| `data.callId`          | string              | The unique identifier for the completed call.       |
+| `data.durationSeconds` | number              | The duration of the call in seconds.                |
+| `data.direction`       | string              | The call direction: `INBOUND` or `OUTBOUND`.        |
+| `data.summary`         | string \| undefined | Optional summary of the call conversation.          |
+| `timestamp`            | string              | The ISO 8601 timestamp when the call was completed. |

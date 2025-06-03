@@ -1,0 +1,36 @@
+---
+title: 'Call Transferred'
+description: 'Get notified when a call is transferred to another agent or system'
+---
+
+The `call.transferred` webhook event is triggered whenever a call is transferred from the Apten assistant to another agent or system. This can be used to track call handoffs and monitor transfer patterns.
+
+## Payload
+
+```json
+{
+  "event": "call.transferred",
+  "data": {
+    "leadId": "c4f23a1b-d8e5-4f67-90c1-2a5b8d3e9x7y",
+    "phone": "+12025550189",
+    "profile": "Default Profile",
+    "callId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "transferType": "WARM",
+    "transferTo": "+12025550100"
+  },
+  "timestamp": "2024-01-15T14:30:00Z"
+}
+```
+
+## Properties
+
+| Property            | Type   | Description                                                          |
+| ------------------- | ------ | -------------------------------------------------------------------- |
+| `event`             | string | The webhook event type (`call.transferred`).                         |
+| `data.leadId`       | string | The unique identifier for the lead.                                  |
+| `data.phone`        | string | The phone number of the lead.                                        |
+| `data.profile`      | string | The customer profile assigned to the lead.                           |
+| `data.callId`       | string | The unique identifier for the call being transferred.                |
+| `data.transferType` | string | The type of transfer: `WARM` (with introduction) or `COLD` (direct). |
+| `data.transferTo`   | string | The phone number or identifier of the transfer destination.          |
+| `timestamp`         | string | The ISO 8601 timestamp when the call was transferred.                |

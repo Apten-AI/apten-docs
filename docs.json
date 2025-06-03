@@ -28,7 +28,9 @@
                   "webhooks/notification-created",
                   "webhooks/message-sent",
                   "webhooks/message-received",
-                  "webhooks/opt-out"
+                  "webhooks/opt-out",
+                  "webhooks/call-completed",
+                  "webhooks/call-transferred"
                 ]
               },
               "webhooks/verification"
