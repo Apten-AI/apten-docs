@@ -17,7 +17,9 @@ The `call.completed` webhook event is triggered whenever a call is finished. Thi
     "callId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "durationSeconds": 145,
     "direction": "INBOUND",
-    "summary": "Customer inquired about pricing and requested a follow-up meeting."
+    "summary": "Customer inquired about pricing and requested a follow-up meeting.",
+    "midCallTransfer": false,
+    "isTransfer": false
   },
   "timestamp": "2024-01-15T14:30:00Z"
 }
@@ -35,4 +37,6 @@ The `call.completed` webhook event is triggered whenever a call is finished. Thi
 | `data.durationSeconds` | number              | The duration of the call in seconds.                |
 | `data.direction`       | string              | The call direction: `INBOUND` or `OUTBOUND`.        |
 | `data.summary`         | string \| undefined | Optional summary of the call conversation.          |
+| `data.midCallTransfer` | boolean             | Whether the AI voice agent transferred the lead during the call. |
+| `data.isTransfer`      | boolean             | Whether this is an SMS-initiated transfer call.     |
 | `timestamp`            | string              | The ISO 8601 timestamp when the call was completed. |
