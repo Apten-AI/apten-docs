@@ -46,7 +46,7 @@
           },
           {
             "group": "Integrations",
-            "pages": ["integrations/salesforce"]
+            "pages": ["integrations/salesforce", "integrations/hubspot"]
           }
         ]
       },
