@@ -52,3 +52,240 @@ Example payload:
   "hubspotId": "12345" // Required for Sync
 }
 ```
+
+## Workflow Actions
+
+Apten provides custom actions that can be used directly within Hubspot workflows. These actions allow you to leverage the full power of the Apten API without leaving your Hubspot environment.
+
+With Apten's Hubspot workflow actions, you can:
+
+- **Create and update Leads**
+- **Get information about Leads**
+- **Send messages to leads**
+- **Manage DNC lists**
+
+These workflow actions enable seamless integration between your Hubspot processes and Apten's AI-powered communication capabilities. In order to utilize workflow actions:
+1. Follow the **Connect Apten to Hubspot** direction in Step 1.
+2. Within your Hubspot, edit or create a workflow
+3. Search for "Apten" within the actions searchbar, and find the actions under **Integrated Apps**
+
+### Create a Lead
+
+The Create a Lead action allows you to automatically create new leads in Apten directly from your Hubspot workflows.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `customer_profile`: The Apten customer profile name to use
+- `first_name`: Contact first name
+- `last_name`: Contact last name
+- `phone`: Phone number (must begin with area code, e.g., +15555555555)
+
+**Optional Parameters:**
+- `email`: Email address (valid email format)
+- `timezone`: Timezone in tz database format (e.g., America/New_York)
+- `additional_info_1_key` through `additional_info_10_key`: Custom field names
+- `additional_info_1_value` through `additional_info_10_value`: Custom field values
+
+**Outputs:**
+- `import_status`: Status of the lead import (success or error)
+- `lead_id`: ID of the created lead in Apten
+
+### Turn Off Lead
+
+Disables messaging for a specific lead in Apten.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The unique identifier of the lead to turn off
+
+**Outputs:**
+- `status`: Operation status (success/error)
+
+### Turn On Lead
+
+Enables messaging for a specific lead in Apten.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The unique identifier of the lead to turn on
+
+**Outputs:**
+- `status`: Operation status (success/error)
+
+### Switch Customer Profile
+
+Changes a lead's customer profile and optionally sends a message or clears memory.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The ID of the lead to switch profiles for
+- `profile`: The name of the customer profile to switch to
+
+**Optional Parameters:**
+- `send_message`: Whether to send a message after switching (true/false)
+- `message_delay_hours`: Hours to delay the message
+- `message_delay_mins`: Minutes to delay the message
+- `clear_memory`: Whether to clear the lead memory (true/false)
+
+**Outputs:**
+- `status`: The status of the profile switch operation
+- `profile_switched`: The name of the profile that was switched to
+- `message_sent`: Whether a message was sent (true/false)
+- `memory_cleared`: Whether lead memory was cleared (true/false)
+
+### Get Lead Data
+
+Retrieves detailed information about a specific lead from Apten.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The unique identifier of the lead to retrieve
+
+**Outputs:**
+- `first_name`, `last_name`, `phone`, `email`: Lead contact information
+- `customer_profile`: The customer profile assigned to the lead
+- `is_ai_on`: Whether AI messaging is enabled (true/false)
+- `has_replied`: Whether the lead has replied to messages (true/false)
+- `is_hot`: Whether the lead is marked as hot (true/false)
+- `is_qualified`: Whether the lead is qualified (true/false)
+- `is_unsubscribed`: Whether the lead is unsubscribed (true/false)
+- `summary`: Summary of the lead conversation
+- `tags`: Tags assigned to the lead (JSON format)
+- `additional_info`: Additional information about the lead (JSON format)
+
+### Send Message
+
+Sends a message to a lead via Apten with various scheduling and delivery options.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The ID of the lead to send message to
+- `message`: The message content to send
+
+**Optional Parameters:**
+- `scheduled_time`: Scheduled time for the message (ISO 8601 format)
+- `send_when_off`: Whether to send message even when lead is turned off (true/false)
+- `schedule_follow_ups`: Whether to schedule follow-up messages (true/false)
+- `override_business_hours`: Whether to override business hours restrictions (true/false)
+
+**Outputs:**
+- `status`: Status of the send message operation
+- `message_id`: ID of the sent message
+- `response_message`: Detailed response about the operation
+- `scheduled_date`: Date when the message was scheduled (if applicable)
+
+### Look Up Lead
+
+Finds an existing lead in Apten by phone number.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `phone`: The phone number to look up (e.g., +1234567890)
+
+**Outputs:**
+- `status`: The result status (success, not_found, or error)
+- `lead_id`: The unique identifier of the found lead (empty if not found)
+- `phone_number`: The normalized phone number that was searched
+
+### Add Context
+
+Adds contextual information, commands, and additional data to a lead.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The unique identifier for the lead
+
+**Optional Parameters:**
+- `context`: Additional context information to add to the lead
+- `command`: Command to queue for execution
+- `additional_info_1_key` through `additional_info_10_key`: Keys for additional information fields
+- `additional_info_1_value` through `additional_info_10_value`: Values for additional information fields
+
+**Outputs:**
+- `status`: The status of the add context operation
+- `context_added`: Whether context was successfully added
+- `command_queued`: Whether a command was successfully queued
+- `additional_info_count`: Number of additional info fields that were added
+
+### Add Event
+
+Creates a custom event record for a lead in Apten.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `lead_id`: The unique identifier for the lead
+- `text`: The text content for the custom event
+
+**Outputs:**
+- `status`: The status of the add event operation
+- `event_id`: The unique identifier of the created event
+- `response_message`: Additional information about the operation result
+- `timestamp`: The timestamp when the event was created
+
+### Check DNC Status
+
+Checks if a phone number is in the Do Not Call list.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `phone`: The phone number to check in the DNC list
+
+**Outputs:**
+- `status`: The status of the get DNC operation
+- `found`: Whether the phone number was found in the DNC list
+- `phone`: The processed phone number that was checked
+- `created_at`: When the phone number was added to DNC (if found)
+- `response_message`: Additional information about the operation result
+
+### Register DNC
+
+Adds a phone number to the Do Not Call list in Apten.
+
+**Required Parameters:**
+- `api_key`: Your Apten API key for authentication
+- `phone`: The phone number to add to the DNC list
+
+**Outputs:**
+- `status`: Status of the DNC registration
+- `processed_phone`: The processed phone number that was added to DNC
+- `response_message`: Detailed response message from the operation
+
+This action will create the lead in Apten and can automatically trigger initial AI conversations based on your customer profile settings.
+
+## Workflow Action Example: Create a Lead
+
+Here's a step-by-step example of how to set up the **Create Apten Lead** action in a Hubspot workflow:
+
+### Step 1: Add the Apten Action
+
+1. In your Hubspot workflow editor, click the **+** button to add a new action
+2. In the "Browse all actions" search bar, type `apten`
+3. Under **Integrated apps**, you'll see the Apten section with available actions
+4. Click **Create Apten Lead** to select this action
+
+![Apten Action Selection](/images/apten-hubspot-screenshot-1.png)
+
+### Step 2: Configure the Action Parameters
+
+Once you've selected the Create Apten Lead action, you'll see the configuration form:
+
+![Apten Action Configuration](/images/apten-hubspot-screenshot-2.png)
+
+### Step 3: Review and Save
+
+After configuring all required fields and any optional parameters:
+
+1. Click **Save** to add the action to your workflow
+2. The action will appear in your workflow as a blue box with the Apten logo
+3. The action card will display "Create Apten Lead" with the description "Create lead in Apten with contact information"
+
+![Apten Action in Workflow](/images/apten-hubspot-screenshot-3.png)
+
+### Step 4: Test Your Workflow
+
+1. Turn on your workflow to make it active
+2. Trigger the workflow conditions (e.g., new contact creation, form submission)
+3. Monitor the workflow execution to ensure leads are being created successfully in Apten
+4. Check your Apten dashboard to verify the new leads appear with the correct information
+
+This workflow action will automatically create leads in Apten whenever the workflow conditions are met, seamlessly integrating your Hubspot contacts with Apten's AI communication capabilities.
