@@ -163,6 +163,49 @@ paths:
           $ref: '#/components/responses/500'
       security:
         - api_key: []
+    delete:
+      description: 'Deletes a specific lead'
+      parameters:
+        - name: leadId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: 'The ID of the lead to delete'
+      responses:
+        200:
+          description: 'Lead deleted successfully.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 'Returns `"Lead deletion initiated successfully"` when the lead deletion process begins.'
+                  leadId:
+                    type: string
+                    description: 'The ID of the lead that was deleted.'
+                example:
+                  message: 'Lead deletion initiated successfully'
+                  leadId: '771c3bc8-853c-4955-b4c5-2120ff6aa488'
+        404:
+          description: 'Lead not found.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                example:
+                  message: 'Resource not found: Lead'
+        403:
+          $ref: '#/components/responses/403'
+        500:
+          $ref: '#/components/responses/500'
+      security:
+        - api_key: []
   /leads/{leadId}/messages:
     get:
       description: 'Fetches messages sent to and received from a lead'

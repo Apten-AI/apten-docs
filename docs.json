@@ -62,6 +62,7 @@
             "pages": [
               "api-reference/leads/create",
               "api-reference/leads/get-lead",
+              "api-reference/leads/delete",
               "api-reference/leads/get-messages",
               "api-reference/leads/turn-off",
               "api-reference/leads/turn-on",
