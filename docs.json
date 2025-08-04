@@ -41,7 +41,8 @@
             "pages": [
               "tutorials/customer_profiles",
               "tutorials/custom_knowledge",
-              "tutorials/guardrails"
+              "tutorials/guardrails",
+              "tutorials/multi-factor-authentication"
             ]
           },
           {
