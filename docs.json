@@ -83,6 +83,23 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Updates",
+            "pages": ["changelog/2025-08-01", "changelog/2025-07-25/2025-07-25"]
+          }
+        ]
+      }
+    ],
+    "anchors": [
+      {
+        "name": "Changelog",
+        "icon": "clock-rotate-left",
+        "url": "changelog",
+        "color": "#2563eb"
       }
     ]
   },
