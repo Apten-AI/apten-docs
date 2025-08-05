@@ -1,0 +1,47 @@
+---
+title: 'July 25, 2025'
+---
+
+## New Features
+
+### Unanswered Questions Section (Optimizations)
+
+- Added new optimization component for analyzing customer flow and improving profiles
+- Tracks frequently asked unanswered questions with frequency counts
+- UI displays questions with dropdown for different instances
+- Helps identify gaps in customer profile knowledge base
+
+![Unanswered Questions Section](/changelog/2025-07-25/question-optimization.gif)
+
+### Switch Profile Tool
+
+- Implemented ability to switch between customer profiles dynamically
+- Added default "Switch Profile" tool, which can be added to any profile
+
+### SharePoint Knowledge Base Sync
+
+- Added SharePoint integration for syncing knowledge base articles
+- Supports automatic synchronization of documents (daily sync)
+- Configurable through integrations section
+
+### Salesforce Article Sync Enhancement
+
+- Extended Salesforce article sync integration with sandbox support
+- Added custom field mapping capabilities
+
+## Improvements
+
+- **Model Reliability / Uptime**: Added more model fallbacks
+- **Voice Custom Tools**: Added placeholder speech for custom tool calls in voice conversations
+- **Objective Prompt**: Improved performance of objective prompt in message nodes
+
+## Bug Fixes
+
+- **Chat UI Updates**: Fixed issue where chat messages weren't updating live
+- **Follow-up Repetition**: Resolved issue with repetitive/similar follow-ups
+- **Profile Draft Deployment**: UI update to prevent deployment of unsaved profile drafts
+- Improved handling for after-call scenarios where users text back
+
+## API Updates
+
+- **Delete Lead API**: Added soft delete functionality while preserving analytics data
